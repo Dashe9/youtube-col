@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Navbar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .menu-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            display: none;
+            z-index: 1050;
+        }
+
+        .menu-dropdown a {
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .menu-dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .menu-toggle:hover .menu-dropdown {
+            display: block;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .left-navbar {
+            width: 69px;
+            background-color: #fff;
+            height: 100vh;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .nav-item {
+            text-align: center;
+            margin: 20px 0;
+            color: black;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: #0073e6;
+        }
+
+        .nav-item img {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+        }
+
+        .top-navbar {
+            width: calc(100% - 80px);
+            margin-left: 75px;
+            background-color: #fff;
+            height: 60px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+        }
+
+        .content {
+            margin-left: 80px;
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            flex: 1;
+        }
+
+        .menu-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            display: none;
+            z-index: 1050;
+        }
+
+        .menu-dropdown a {
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        .menu-dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .menu-toggle:hover .menu-dropdown {
+            display: block;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .video-container {
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            transition: transform 0.3s ease;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-container:hover video {
+            transform: scale(1.05);
+            /* Slight zoom effect on hover */
+        }
+
+        .video-actions {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .video-container:hover .video-actions {
+            display: block;
+        }
+
+        .video-actions button {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .video-actions button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .content-section {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .content-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body class="">
+    <nav class=" sticky-top">
+
+        <div class="left-navbar glass">
+            <div class="menu-toggle position-relative">
+                <button class="btn border-0 me-3">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="menu-dropdown shadow">
+                    <a href="#">Home</a>
+                    <a href="#">Trending</a>
+                    <a href="#">Playlist</a>
+                    <a href="#">History</a>
+                    <a href="#">Watch Later</a>
+                    <a href="#">Music</a>
+                    <a href="#">Gaming</a>
+                    <a href="#">Settings</a>
+                    <a href="#">Help & Feedback</a>
+                </div>
+            </div>
+            <a href="./index.html" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-house-door" viewBox="0 0 16 16">
+                    <path
+                        d="M8.354 1.146a.5.5 0 0 0-.708 0l-6.5 6.5A.5.5 0 0 0 1.5 8H2v5.5a1.5 1.5 0 0 0 1.5 1.5h3a.5.5 0 0 0 .5-.5V10h2v4.5a.5.5 0 0 0 .5.5h3A1.5 1.5 0 0 0 14 13.5V8h.5a.5.5 0 0 0 .354-.854l-6.5-6.5z" />
+                    <path
+                        d="M7.5 10.5v4H4a.5.5 0 0 1-.5-.5V7.707L8 2.207l4.5 4.5V14a.5.5 0 0 1-.5.5H8.5v-4a.5.5 0 0 0-1 0z" />
+                </svg>
+                <span>Home</span>
+            </a>
+            <a href="./short.html" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-camera-video" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M0 5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v.5l3-1.5v6l-3-1.5v.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5zm2-1a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z" />
+                </svg>
+                <span>Shorts</span>
+            </a>
+            <a href="#" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-collection" viewBox="0 0 16 16">
+                    <path
+                        d="M2 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5H2zm-1-.5A1.5 1.5 0 0 1 2 1h12a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 14 13H2a1.5 1.5 0 0 1-1.5-1.5v-9z" />
+                    <path
+                        d="M4 8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 8zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z" />
+                </svg>
+                <span>Subscribe</span>
+            </a>
+            <a href="./profile.html" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path
+                        d="M13.468 12.37C12.758 11.226 11.317 10.5 8 10.5s-4.758.726-5.468 1.87A6.987 6.987 0 0 1 8 1a6.987 6.987 0 0 1 5.468 11.37z" />
+                    <path fill-rule="evenodd"
+                        d="M8 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm0-1a6 6 0 1 1 0-12 6 6 0 0 1 0 12z" />
+                </svg>
+                <span>You</span>
+            </a>
+        </div>
+
+    </nav>
+    <nav class="sticky-top">
+        <div class="top-navbar glass ">
+
+            <a class="navbar-brand d-flex align-items-center " href="#">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpMzjgTOwh1tzu0NRjlE_hYFkhD1STg_5U5g&s"
+                    alt="YouTube Logo" height="50" class="me-2">
+                <span class="">PK</span>
+            </a>
+            <div class="input-group mx-auto w-50">
+                <input type="text" class="form-control rounded-start-pill" id="searchInput" placeholder="Search"
+                    oninput="showSuggestions()">
+                <button class="btn btn-outline-secondary rounded-end-pill">
+                    <i class="bi bi-search"></i>
+                </button>
+                <button class="btn ms-2">
+                    <i class="bi bi-mic"></i>
+                </button>
+            </div>
+            <div class="dropdown position-relative">
+                <ul class="dropdown-menu w-100" id="suggestionDropdown" style="top: 50px;">
+                    <li><a class="dropdown-item" href="#">Suggestion 1</a></li>
+                    <li><a class="dropdown-item" href="#">Suggestion 2</a></li>
+                    <li><a class="dropdown-item" href="#">Suggestion 3</a></li>
+                    <li><a class="dropdown-item" href="#">Suggestion 4</a></li>
+                </ul>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <button class="btn">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+                <button class="btn position-relative">
+                    <i class="bi bi-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        9+
+                    </span>
+                </button>
+               <a href="./profile.html"> <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
+                    style="width: 40px; height: 40px;">S</div></a>
+            </div>
+
+        </div>
+    </nav>
+    <header class="p-5  ">
+        <div class="container my-5 ">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="video-container ratio ratio-16x9">
+                        <video class="w-100 rounded" autoplay muted loop>
+                            <source src="https://xactmind.com/wp-content/uploads/2024/02/xactmind-home-video.mp4"
+                                type="video/mp4" />
+                        </video>
+                        <div class="video-actions">
+                            <button onclick="alert('Play video')">Play</button>
+                            <button onclick="alert('Download video')">Download</button>
+                        </div>
+                    </div>
+                    <h3>Video Title 1</h3>
+                    <p>This is a description of the first video.es.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="video-container ratio ratio-16x9">
+                        <video class="w-100 rounded" autoplay muted loop>
+                            <source src="https://xactmind.com/wp-content/uploads/2024/02/xactmind-home-video.mp4"
+                                type="video/mp4" />
+                        </video>
+                        <div class="video-actions">
+                            <button onclick="alert('Play video')">Play</button>
+                            <button onclick="alert('Download video')">Download</button>
+                        </div>
+                    </div>
+                    <h3>title</h3>
+                    <p>Lorem ipsum dolor sit.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="video-container ratio ratio-16x9">
+                        <video class="w-100 rounded" autoplay muted loop>
+                            <source src="https://xactmind.com/wp-content/uploads/2024/02/xactmind-home-video.mp4"
+                                type="video/mp4" />
+                        </video>
+                        <div class="video-actions">
+                            <button onclick="alert('Play video')">Play</button>
+                            <button onclick="alert('Download video')">Download</button>
+                        </div>
+                    </div>
+                    <h3>title</h3>
+                    <p>Lorem ipsum dolor sit.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="video-container ratio ratio-16x9">
+                        <video class="w-100 rounded" autoplay muted loop>
+                            <source src="https://xactmind.com/wp-content/uploads/2024/02/xactmind-home-video.mp4"
+                                type="video/mp4" />
+                        </video>
+                        <div class="video-actions">
+                            <button onclick="alert('Play video')">Play</button>
+                            <button onclick="alert('Download video')">Download</button>
+                        </div>
+                    </div>
+
+                    <h3>Video Title 4</h3>
+                    <p>This is a description of the fourth </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="video-container ratio ratio-16x9">
+                        <video class="w-100 rounded" autoplay muted loop>
+                            <source src="https://xactmind.com/wp-content/uploads/2024/02/xactmind-home-video.mp4"
+                                type="video/mp4" />
+                        </video>
+                        <div class="video-actions">
+                            <button onclick="alert('Play video')">Play</button>
+                            <button onclick="alert('Download video')">Download</button>
+                        </div>
+                    </div>
+                    <h3>Video Title 1</h3>
+                    <p>This is a description of the first video.es.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="video-container ratio ratio-16x9">
+                        <video class="w-100 rounded" autoplay muted loop>
+                            <source src="https://xactmind.com/wp-content/uploads/2024/02/xactmind-home-video.mp4"
+                                type="video/mp4" />
+                        </video>
+                        <div class="video-actions">
+                            <button onclick="alert('Play video')">Play</button>
+                            <button onclick="alert('Download video')">Download</button>
+                        </div>
+                    </div>
+                    <h3>title</h3>
+                    <p>Lorem ipsum dolor sit.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="video-container ratio ratio-16x9">
+                        <video class="w-100 rounded" autoplay muted loop>
+                            <source src="https://xactmind.com/wp-content/uploads/2024/02/xactmind-home-video.mp4"
+                                type="video/mp4" />
+                        </video>
+                        <div class="video-actions">
+                            <button onclick="alert('Play video')">Play</button>
+                            <button onclick="alert('Download video')">Download</button>
+                        </div>
+                    </div>
+                    <h3>title</h3>
+                    <p>Lorem ipsum dolor sit.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="video-container ratio ratio-16x9">
+                        <video class="w-100 rounded" autoplay muted loop>
+                            <source src="https://xactmind.com/wp-content/uploads/2024/02/xactmind-home-video.mp4"
+                                type="video/mp4" />
+                        </video>
+                        <div class="video-actions">
+                            <button onclick="alert('Play video')">Play</button>
+                            <button onclick="alert('Download video')">Download</button>
+                        </div>
+                    </div>
+
+                    <h3>Video Title 4</h3>
+                    <p>This is a description of the fourth </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row text-center mt-4">
+            <div class="col-md-12">
+                <p>&copy; 2024 SaqibRaja- <a href="#" class="text-secondary text-decoration-none">Privacy
+                        Policy</a></p>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+
+        function showSuggestions() {
+            const query = searchInput.value.trim();
+            console.log("Search query:", query);
+        }
+    </script>
+
+</body>
+
+</html>
